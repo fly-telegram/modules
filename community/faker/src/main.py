@@ -9,7 +9,7 @@ import faker
 import random
 
 
-def fake_cmd(self):
+async def fake_cmd(self):
     fake = faker.Faker()
 
     first_name = fake.first_name()
