@@ -26,11 +26,11 @@ async def fake_cmd(self):
 
     await self.message.edit(
         "<b>✨ generated information</b>\n"
-        f"<b>name</b>: <code>{last_name} {first_name}</b>\n"
-        f"<b>age</b>: <code>{age}</b>\n"
-        f"<b>country</b>: <code>{country}</b>\n"
-        f"<b>address</b>: <code>{address}</b>\n"
-        f"<b>ZIP-code</b>: <code>{zip_code}</b>\n"
-        f"<b>email</b>: <code>{email}</b>\n"
-        f"<b>number</b>: <code>{number}</b>\n"
+        f"<b>name</b>: <code>{last_name} {first_name}</code>\n"
+        f"<b>age</b>: <code>{age}</code>\n"
+        f"<b>country</b>: <code>{country}</code>\n"
+        f"<b>address</b>: <code>{address}</code>\n"
+        f"<b>ZIP-code</b>: <code>{zip_code}</code>\n"
+        f"<b>email</b>: <code>{email}</code>\n"
+        f"<b>number</b>: <code>{number}</code>\n"
     )
