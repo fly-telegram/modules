@@ -1,0 +1,11 @@
+{
+  "name": "Sticker",
+  "description": "Sticker and image utilities",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": []
+}

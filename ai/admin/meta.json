@@ -1,0 +1,11 @@
+{
+  "name": "Admin",
+  "description": "Admin utilities for chat management",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": []
+}

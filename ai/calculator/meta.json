@@ -1,0 +1,11 @@
+{
+  "name": "Calculator",
+  "description": "Simple calculator for math expressions",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": []
+}

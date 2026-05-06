@@ -1,0 +1,11 @@
+{
+  "name": "ChatInfo",
+  "description": "Get detailed information about chat/group/channel",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": []
+}
