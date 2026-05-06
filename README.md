@@ -17,7 +17,7 @@
   <tr>
     <th>Module</th>
     <th>Link</th>
-    <th>release</th>
+    <th>Release</th>
   </tr>
   <tr>
     <td>Faker</td>
