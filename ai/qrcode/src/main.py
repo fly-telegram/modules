@@ -74,8 +74,6 @@ async def qr_read_cmd(self):
         await message.edit("📥 Downloading photo...")
         photo_path = await self.client.download_media(message.reply_to_message.photo)
         
-        # Read QR code
-        from pyzbar.pyzbar import decode
         
         img = Image.open(photo_path)
         decoded = decode(img)
@@ -94,10 +92,5 @@ async def qr_read_cmd(self):
             await message.edit(text)
         else:
             await message.edit("❌ <b>No QR code found in image!</b>")
-            
-    except ImportError:
-        await message.edit(
-            "❌ <b>Install pyzbar:</b> <code>pip install pyzbar</code>"
-        )
     except Exception as e:
         await message.edit(f"❌ <b>Error:</b> <code>{e}</code>")
