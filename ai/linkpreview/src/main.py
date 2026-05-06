@@ -10,19 +10,13 @@ import html
 from urllib.parse import urlparse
 
 
-# ──────────────────────────────────────────────
-# Helpers
-# ──────────────────────────────────────────────
-
 URL_REGEX = re.compile(
     r"https?://[^\s<>\")\]]+"
 )
 
 
-def _extract_urls(text: str) -> list[str]:
-    """Extract all URLs from text."""
+def _extract_urls(text: str) -> list:
     urls = URL_REGEX.findall(text)
-    # Clean trailing punctuation
     cleaned = []
     for url in urls:
         while url and url[-1] in ".,;:!?)'\"":
@@ -32,7 +26,6 @@ def _extract_urls(text: str) -> list[str]:
 
 
 def _validate_url(url: str) -> str:
-    """Add scheme if missing and validate."""
     if not url.startswith(("http://", "https://")):
         url = "https://" + url
     parsed = urlparse(url)
@@ -41,24 +34,17 @@ def _validate_url(url: str) -> str:
     return url
 
 
-# ──────────────────────────────────────────────
-# .preview — fetch link preview
-# ──────────────────────────────────────────────
-
 async def preview_cmd(self):
-    """Fetch link preview (title, description, image) — usage: .preview <url> or reply to message with URL"""
+    """Fetch link preview (title, description, image) - usage: .preview <url> or reply"""
     message = self.message
     args = message.text.split(maxsplit=1)
 
     url = None
-
-    # Check reply first
     if message.reply_to_message and message.reply_to_message.text:
         urls = _extract_urls(message.reply_to_message.text)
         if urls:
             url = urls[0]
 
-    # Then check args
     if not url and len(args) > 1:
         url = args[1].strip()
 
@@ -103,12 +89,10 @@ async def preview_cmd(self):
 
                 body = await resp.text()
 
-        # Parse meta tags
         title = ""
         description = ""
         image = ""
 
-        # Title
         title_match = re.search(
             r'<meta[^>]+property=["\']og:title["\'][^>]+content=["\']([^"\']+)["\']',
             body, re.IGNORECASE
@@ -123,7 +107,6 @@ async def preview_cmd(self):
         if title_match:
             title = html.unescape(title_match.group(1).strip())
 
-        # Description
         desc_match = re.search(
             r'<meta[^>]+property=["\']og:description["\'][^>]+content=["\']([^"\']+)["\']',
             body, re.IGNORECASE
@@ -141,7 +124,6 @@ async def preview_cmd(self):
         if desc_match:
             description = html.unescape(desc_match.group(1).strip())
 
-        # Image
         img_match = re.search(
             r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)["\']',
             body, re.IGNORECASE
@@ -154,7 +136,6 @@ async def preview_cmd(self):
         if img_match:
             image = html.unescape(img_match.group(1).strip())
 
-        # Build result
         parsed_url = urlparse(url)
         domain = parsed_url.netloc
 
@@ -164,7 +145,6 @@ async def preview_cmd(self):
         if title:
             result += f"📌 <b>Title:</b> {title}\n"
         if description:
-            # Truncate long descriptions
             if len(description) > 300:
                 description = description[:297] + "..."
             result += f"📝 <b>Description:</b> {description}\n"
@@ -188,12 +168,8 @@ async def preview_cmd(self):
         )
 
 
-# ──────────────────────────────────────────────
-# .expand — expand short URL
-# ──────────────────────────────────────────────
-
 async def expand_cmd(self):
-    """Expand shortened URL to its final destination — usage: .expand <url>"""
+    """Expand shortened URL - usage: .expand <url>"""
     message = self.message
     args = message.text.split(maxsplit=1)
 
@@ -217,11 +193,11 @@ async def expand_cmd(self):
         import aiohttp
 
         timeout = aiohttp.ClientTimeout(total=15)
+        urls_chain = [url]
+        current = url
+
         async with aiohttp.ClientSession(timeout=timeout) as session:
-            # Follow redirects manually to show the chain
-            urls_chain = [url]
-            current = url
-            for _ in range(10):  # max 10 hops
+            for _ in range(10):
                 async with session.head(
                     current,
                     allow_redirects=False,
@@ -232,7 +208,6 @@ async def expand_cmd(self):
                         if not location:
                             break
                         if not location.startswith("http"):
-                            # Relative redirect
                             parsed = urlparse(current)
                             location = f"{parsed.scheme}://{parsed.netloc}{location}"
                         urls_chain.append(location)
@@ -242,7 +217,7 @@ async def expand_cmd(self):
 
         if len(urls_chain) == 1:
             await status_msg.edit(
-                f"✅ <b>No redirects — URL is already final</b>\n\n"
+                f"✅ <b>No redirects - URL is already final</b>\n\n"
                 f"🔗 <code>{url}</code>"
             )
             return
@@ -251,12 +226,10 @@ async def expand_cmd(self):
         result += "━━━━━━━━━━━━━━━\n\n"
 
         for i, u in enumerate(urls_chain):
-            parsed = urlparse(u)
             icon = "🔗" if i == 0 else "⬇️" if i < len(urls_chain) - 1 else "✅"
             result += f"{icon} <code>{u}</code>\n"
 
         result += f"\n📊 <b>Hops:</b> <code>{len(urls_chain) - 1}</code>"
-
         await status_msg.edit(result)
 
     except ImportError:
@@ -268,12 +241,8 @@ async def expand_cmd(self):
         await status_msg.edit(f"❌ <b>Error:</b> <code>{e}</code>")
 
 
-# ──────────────────────────────────────────────
-# .check — check if URL is reachable
-# ──────────────────────────────────────────────
-
 async def check_cmd(self):
-    """Check if URL is reachable and get status info — usage: .check <url>"""
+    """Check if URL is reachable - usage: .check <url>"""
     message = self.message
     args = message.text.split(maxsplit=1)
 
@@ -298,8 +267,8 @@ async def check_cmd(self):
         import time
 
         timeout = aiohttp.ClientTimeout(total=10)
-
         start = time.time()
+
         async with aiohttp.ClientSession(timeout=timeout) as session:
             async with session.get(url, headers={
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
@@ -308,11 +277,12 @@ async def check_cmd(self):
                 content_type = resp.headers.get("Content-Type", "unknown")
                 content_length = resp.headers.get("Content-Length", "unknown")
                 server = resp.headers.get("Server", "unknown")
+                status_code = resp.status
+                reason = resp.reason
 
-        # Status icon
-        if resp.status < 300:
+        if status_code < 300:
             icon = "✅"
-        elif resp.status < 400:
+        elif status_code < 400:
             icon = "🔄"
         else:
             icon = "❌"
@@ -320,12 +290,11 @@ async def check_cmd(self):
         result = f"{icon} <b>URL Status</b>\n"
         result += f"━━━━━━━━━━━━━━━\n\n"
         result += f"🔗 <b>URL:</b> <code>{url}</code>\n"
-        result += f"📊 <b>Status:</b> <code>{resp.status} {resp.reason}</code>\n"
+        result += f"📊 <b>Status:</b> <code>{status_code} {reason}</code>\n"
         result += f"⏱️ <b>Response time:</b> <code>{elapsed}ms</code>\n"
         result += f"📋 <b>Content-Type:</b> <code>{content_type}</code>\n"
 
         if content_length != "unknown":
-            # Format size
             size = int(content_length)
             if size < 1024:
                 size_str = f"{size} B"
@@ -344,32 +313,19 @@ async def check_cmd(self):
             "❌ <b>aiohttp is required!</b>\n\n"
             "Install it: <code>pip install aiohttp</code>"
         )
-    except aiohttp.ClientError as e:
-        await status_msg.edit(
-            f"❌ <b>Connection failed!</b>\n\n"
-            f"🔗 <code>{url}</code>\n"
-            f"📝 <b>Error:</b> <code>{e}</code>"
-        )
     except Exception as e:
         await status_msg.edit(f"❌ <b>Error:</b> <code>{e}</code>")
 
 
-# ──────────────────────────────────────────────
-# .extract — extract all URLs from text
-# ──────────────────────────────────────────────
-
 async def extract_cmd(self):
-    """Extract all URLs from text — usage: .extract <text> or reply to message"""
+    """Extract all URLs from text - usage: .extract <text> or reply"""
     message = self.message
     args = message.text.split(maxsplit=1)
 
     text = None
-
-    # Check reply first
     if message.reply_to_message and message.reply_to_message.text:
         text = message.reply_to_message.text
 
-    # Then check args
     if not text and len(args) > 1:
         text = args[1]
 
@@ -398,12 +354,8 @@ async def extract_cmd(self):
     await message.edit(result)
 
 
-# ──────────────────────────────────────────────
-# .headers — show HTTP headers
-# ──────────────────────────────────────────────
-
 async def headers_cmd(self):
-    """Show HTTP response headers — usage: .headers <url>"""
+    """Show HTTP response headers - usage: .headers <url>"""
     message = self.message
     args = message.text.split(maxsplit=1)
 
@@ -434,10 +386,9 @@ async def headers_cmd(self):
                 headers = resp.headers
                 status = resp.status
 
-        result = f"📋 <b>HTTP Headers</b> — <code>{status}</code>\n"
+        result = f"📋 <b>HTTP Headers</b> - <code>{status}</code>\n"
         result += f"━━━━━━━━━━━━━━━\n\n"
 
-        # Show important headers first
         priority = ["content-type", "content-length", "server", "location",
                      "cache-control", "set-cookie", "x-frame-options",
                      "strict-transport-security", "content-security-policy"]
@@ -451,14 +402,12 @@ async def headers_cmd(self):
                     val = val[:97] + "..."
                 result += f"🔹 <b>{key.title()}:</b> <code>{val}</code>\n"
 
-        # Show remaining headers
         for key, val in headers.items():
             if key not in shown:
                 if len(val) > 100:
                     val = val[:97] + "..."
                 result += f"   <b>{key}:</b> <code>{val}</code>\n"
 
-        # Truncate if too long for Telegram
         if len(result) > 4000:
             result = result[:3990] + "\n..."
 

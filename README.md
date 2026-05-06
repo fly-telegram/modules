@@ -84,4 +84,19 @@
     <td>https://github.com/fly-telegram/modules/tree/main/ai/linkpreview/</td>
     <td>AI</td>
   </tr>
+  <tr>
+    <td>shorturl</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/shorturl/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>screenshot</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/screenshot/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>poll</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/poll/</td>
+    <td>AI</td>
+  </tr>
 </table>

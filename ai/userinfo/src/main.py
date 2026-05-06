@@ -6,7 +6,6 @@
 #    Licensed under the GNU AGPLv3.
 
 from pyrogram.types import User
-from datetime import datetime
 
 
 def get_user_status(status) -> str:

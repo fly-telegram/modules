@@ -1,0 +1,11 @@
+{
+  "name": "Poll",
+  "description": "Create and manage polls with custom options, anonymous voting, quiz mode",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": []
+}
