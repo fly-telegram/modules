@@ -30,8 +30,8 @@
     <td>AI</td>
   </tr>
   <tr>
-    <td>antispam</td>
-    <td>https://github.com/fly-telegram/modules/tree/main/ai/antispam/</td>
+    <td>weather</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/weather/</td>
     <td>AI</td>
   </tr>
   <tr>
@@ -67,6 +67,21 @@
   <tr>
     <td>userinfo</td>
     <td>https://github.com/fly-telegram/modules/tree/main/ai/userinfo/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>translate</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/translate/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>texttools</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/texttools/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>linkpreview</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/linkpreview/</td>
     <td>AI</td>
   </tr>
 </table>

@@ -1,0 +1,11 @@
+{
+  "name": "TextTools",
+  "description": "Text utilities: case converter, reverse, word count, base64 encode/decode, random string generator",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": []
+}

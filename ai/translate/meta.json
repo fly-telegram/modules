@@ -1,0 +1,11 @@
+{
+  "name": "Translate",
+  "description": "Translate text between languages using Google Translate",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": ["aiohttp"]
+}

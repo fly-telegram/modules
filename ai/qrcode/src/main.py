@@ -8,6 +8,7 @@
 import io
 import qrcode
 from PIL import Image
+from pyzbar.pyzbar import decode
 
 
 async def qr_cmd(self):

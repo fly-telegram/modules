@@ -1,0 +1,11 @@
+{
+  "name": "LinkPreview",
+  "description": "URL utilities: fetch link previews (title, description, image), expand short URLs, check link status, extract all links from text",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": ["aiohttp"]
+}
