@@ -7,8 +7,11 @@
 
 import io
 import urllib.parse
+from loader import Loader
 
+loader = Loader()
 
+@loader.alias('ss')
 async def screenshot_cmd(self):
     """Take screenshot of a website \u2014 usage: .ss <url> [width] [height]"""
     message = self.message
