@@ -1,0 +1,11 @@
+{
+  "name": "Crypto",
+  "description": "Track cryptocurrency prices, market cap, and trends",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": ["aiohttp"]
+}

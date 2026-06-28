@@ -1,0 +1,11 @@
+{
+  "name": "Paste",
+  "description": "Upload text and code to pastebin services",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": ["aiohttp"]
+}

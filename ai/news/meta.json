@@ -1,0 +1,11 @@
+{
+  "name": "News",
+  "description": "Get latest news headlines from around the world",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": ["aiohttp"]
+}

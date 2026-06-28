@@ -199,7 +199,7 @@ async def b64dec_cmd(self):
 
 async def rand_cmd(self):
     """Generate random string - usage: .rand <length> [type]
-    
+
     Types: alpha (letters), num (digits), alphanum (both), all (with symbols)
     """
     message = self.message

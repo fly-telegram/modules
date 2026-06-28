@@ -150,7 +150,8 @@ async def vote_cmd(self):
 
     if len(args) < 2:
         poll = message.reply_to_message.poll
-        opts = "\n".join(f"{i+1}. <code>{opt.text}</code>" for i, opt in enumerate(poll.options))
+        opts = "\n".join(f"{i+1}. <code>{opt.text}</code>" for i,
+                         opt in enumerate(poll.options))
         await message.edit(
             f"\U0001f4ca <b>Poll:</b> <code>{poll.question}</code>\n\n"
             f"{opts}\n\n"

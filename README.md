@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://raw.githubusercontent.com/fly-telegram/userbot/master/assets/logo.gif">
+    <img src="https://raw.githubusercontent.com/fly-telegram/fly-telegram/master/assets/logo.gif">
     <h1>🕊️ fly telegram</h1>
     <p>It's modules for Fly-Telegram userbot</p>
 </div>
@@ -23,6 +23,56 @@
     <td>Faker</td>
     <td>https://github.com/fly-telegram/modules/tree/main/community/faker/</td>
     <td>community</td>
+  </tr>
+  <tr>
+    <td>GitHub</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/github/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>Crypto</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/crypto/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>Movie</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/movie/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>News</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/news/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>Wikipedia</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/wikipedia/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>Paste</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/paste/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>Currency</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/currency/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>Memes</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/memes/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>AnimeWallpaper</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/animewallpaper/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>Music</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/music/</td>
+    <td>AI</td>
   </tr>
   <tr>
     <td>admin</td>
@@ -70,6 +120,11 @@
     <td>AI</td>
   </tr>
   <tr>
+    <td>animu</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/animu/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
     <td>translate</td>
     <td>https://github.com/fly-telegram/modules/tree/main/ai/translate/</td>
     <td>AI</td>
@@ -97,6 +152,56 @@
   <tr>
     <td>poll</td>
     <td>https://github.com/fly-telegram/modules/tree/main/ai/poll/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>YouTube</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/yt/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>Lyrics</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/lyrics/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>Password</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/password/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>Joke</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/joke/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>Dice</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/dice/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>IP</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/ip/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>Define</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/define/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>Trivia</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/trivia/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>Font</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/font/</td>
+    <td>AI</td>
+  </tr>
+  <tr>
+    <td>Color</td>
+    <td>https://github.com/fly-telegram/modules/tree/main/ai/color/</td>
     <td>AI</td>
   </tr>
 </table>

@@ -103,7 +103,8 @@ async def preview_cmd(self):
                 body, re.IGNORECASE
             )
         if not title_match:
-            title_match = re.search(r"<title>(.*?)</title>", body, re.IGNORECASE | re.DOTALL)
+            title_match = re.search(
+                r"<title>(.*?)</title>", body, re.IGNORECASE | re.DOTALL)
         if title_match:
             title = html.unescape(title_match.group(1).strip())
 
@@ -139,8 +140,8 @@ async def preview_cmd(self):
         parsed_url = urlparse(url)
         domain = parsed_url.netloc
 
-        result = f"🔗 <b>Link Preview</b>\n"
-        result += f"━━━━━━━━━━━━━━━\n\n"
+        result = "🔗 <b>Link Preview</b>\n"
+        result += "━━━━━━━━━━━━━━━\n\n"
 
         if title:
             result += f"📌 <b>Title:</b> {title}\n"
@@ -288,7 +289,7 @@ async def check_cmd(self):
             icon = "❌"
 
         result = f"{icon} <b>URL Status</b>\n"
-        result += f"━━━━━━━━━━━━━━━\n\n"
+        result += "━━━━━━━━━━━━━━━\n\n"
         result += f"🔗 <b>URL:</b> <code>{url}</code>\n"
         result += f"📊 <b>Status:</b> <code>{status_code} {reason}</code>\n"
         result += f"⏱️ <b>Response time:</b> <code>{elapsed}ms</code>\n"
@@ -344,7 +345,7 @@ async def extract_cmd(self):
         return
 
     result = f"🔗 <b>Extracted {len(urls)} URL(s)</b>\n"
-    result += f"━━━━━━━━━━━━━━━\n\n"
+    result += "━━━━━━━━━━━━━━━\n\n"
 
     for i, url in enumerate(urls, 1):
         parsed = urlparse(url)
@@ -387,11 +388,11 @@ async def headers_cmd(self):
                 status = resp.status
 
         result = f"📋 <b>HTTP Headers</b> - <code>{status}</code>\n"
-        result += f"━━━━━━━━━━━━━━━\n\n"
+        result += "━━━━━━━━━━━━━━━\n\n"
 
         priority = ["content-type", "content-length", "server", "location",
-                     "cache-control", "set-cookie", "x-frame-options",
-                     "strict-transport-security", "content-security-policy"]
+                    "cache-control", "set-cookie", "x-frame-options",
+                    "strict-transport-security", "content-security-policy"]
 
         shown = set()
         for key in priority:

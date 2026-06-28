@@ -80,10 +80,10 @@ def safe_eval(node):
 async def calc_cmd(self):
     """Calculate math expression - usage: .calc <expression>"""
     message = self.message
-    
+
     # Get expression
     args = message.text.split(maxsplit=1)
-    
+
     if len(args) < 2:
         await message.edit(
             "❌ <b>Usage:</b> <code>.calc <expression></code>\n\n"
@@ -95,21 +95,21 @@ async def calc_cmd(self):
             "• <code>.calc sin(pi/2)</code>"
         )
         return
-    
+
     expression = args[1]
-    
+
     try:
         # Parse and evaluate
         tree = ast.parse(expression, mode="eval")
         result = safe_eval(tree)
-        
+
         # Format result
         if isinstance(result, float):
             if result == int(result):
                 result = int(result)
             else:
                 result = round(result, 10)
-        
+
         await message.edit(
             f"🔢 <b>Calculator</b>\n"
             f"━━━━━━━━━━━━━━━\n\n"

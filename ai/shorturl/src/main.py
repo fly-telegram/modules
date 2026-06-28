@@ -33,7 +33,7 @@ async def short_cmd(self):
 
     service = args[2].lower() if len(args) > 2 else "isgd"
 
-    status_msg = await message.edit(f"\U0001f517 <b>Shortening URL...</b>")
+    status_msg = await message.edit("\U0001f517 <b>Shortening URL...</b>")
 
     try:
         import aiohttp
@@ -139,7 +139,8 @@ async def expand_cmd(self):
         result += "\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\n"
 
         for i, u in enumerate(urls_chain):
-            icon = "\U0001f517" if i == 0 else "\u2b07\ufe0f" if i < len(urls_chain) - 1 else "\u2705"
+            icon = "\U0001f517" if i == 0 else "\u2b07\ufe0f" if i < len(
+                urls_chain) - 1 else "\u2705"
             result += f"{icon} <code>{u}</code>\n"
 
         result += f"\n\U0001f4ca <b>Hops:</b> <code>{len(urls_chain) - 1}</code>"

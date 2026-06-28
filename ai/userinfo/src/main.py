@@ -12,7 +12,7 @@ def get_user_status(status) -> str:
     """Convert user status to readable text"""
     if not status:
         return "Unknown"
-    
+
     status_map = {
         "UserStatus.ONLINE": "🟢 Online",
         "UserStatus.OFFLINE": "🔴 Offline",
@@ -21,7 +21,7 @@ def get_user_status(status) -> str:
         "UserStatus.LAST_MONTH": "🟣 Last month",
         "UserStatus.LONG_AGO": "⚫ Long ago",
     }
-    
+
     status_str = str(status)
     return status_map.get(status_str, status_str)
 
@@ -36,13 +36,13 @@ def get_user_photos_count(user: User) -> str:
 async def user_cmd(self):
     """Get information about user - reply to message or use without reply"""
     message = self.message
-    
+
     # Check if replying to message
     if message.reply_to_message and message.reply_to_message.from_user:
         user = message.reply_to_message.from_user
     else:
         user = message.from_user
-    
+
     # Get user info
     user_id = user.id
     first_name = user.first_name or "Not specified"
@@ -58,16 +58,16 @@ async def user_cmd(self):
     support = "🛡️ Yes" if user.is_support else "No"
     restricted = "🚫 Yes" if user.is_restricted else "No"
     photo = get_user_photos_count(user)
-    
+
     # Get profile photos count
     try:
         photos = await self.client.get_chat_photos_count(user.id)
     except:
         photos = 0
-    
+
     # Format user info
     full_name = f"{first_name} {last_name}".strip()
-    
+
     text = (
         f"👤 <b>User Information</b>\n"
         f"━━━━━━━━━━━━━━━\n\n"
@@ -88,19 +88,19 @@ async def user_cmd(self):
         f"━━━━━━━━━━━━━━━\n"
         f"🖼️ <b>Profile photos:</b> <code>{photos}</code>\n"
     )
-    
+
     await message.edit(text)
 
 
 async def id_cmd(self):
     """Get user ID - quick command"""
     message = self.message
-    
+
     if message.reply_to_message and message.reply_to_message.from_user:
         user = message.reply_to_message.from_user
         text = f"🆔 <b>User ID:</b> <code>{user.id}</code>"
     else:
         user = message.from_user
         text = f"🆔 <b>Your ID:</b> <code>{user.id}</code>"
-    
+
     await message.edit(text)

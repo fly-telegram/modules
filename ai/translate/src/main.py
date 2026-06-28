@@ -98,7 +98,8 @@ async def tr_cmd(self):
 
         # Truncate long texts for display
         orig_display = text[:200] + ("..." if len(text) > 200 else "")
-        trans_display = translated[:200] + ("..." if len(translated) > 200 else "")
+        trans_display = translated[:200] + \
+            ("..." if len(translated) > 200 else "")
 
         result = (
             f"🌐 <b>Translation</b>\n"

@@ -1,0 +1,11 @@
+{
+  "name": "Dice",
+  "description": "Roll dice, flip coins, and generate random numbers",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": []
+}

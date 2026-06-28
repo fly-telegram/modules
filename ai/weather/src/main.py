@@ -83,7 +83,8 @@ async def weather_cmd(self):
         visibility = current["visibility"]
         pressure = current["pressure"]
         uv = current["uvIndex"]
-        icon_code = current["weatherIconUrl"][0]["value"].split("/")[-1].replace(".png", "")
+        icon_code = current["weatherIconUrl"][0]["value"].split(
+            "/")[-1].replace(".png", "")
         icon = WEATHER_ICONS.get(icon_code, "🌡️")
 
         # Sunrise / sunset from today's astronomy
@@ -163,12 +164,15 @@ async def forecast_cmd(self):
             main_desc = max(set(descs), key=descs.count)
 
             # Get icon from midday (index 4 = ~12:00)
-            icon_code = day_data["hourly"][4]["weatherIconUrl"][0]["value"].split("/")[-1].replace(".png", "")
+            icon_code = day_data["hourly"][4]["weatherIconUrl"][0]["value"].split(
+                "/")[-1].replace(".png", "")
             icon = WEATHER_ICONS.get(icon_code, "🌡️")
 
             # Average humidity & wind
-            avg_hum = sum(int(h["humidity"]) for h in day_data["hourly"]) // len(day_data["hourly"])
-            avg_wind = sum(int(h["windspeedKmph"]) for h in day_data["hourly"]) // len(day_data["hourly"])
+            avg_hum = sum(int(h["humidity"])
+                          for h in day_data["hourly"]) // len(day_data["hourly"])
+            avg_wind = sum(int(h["windspeedKmph"])
+                           for h in day_data["hourly"]) // len(day_data["hourly"])
 
             result += (
                 f"{icon} <b>{date}</b>\n"
