@@ -30,7 +30,8 @@ def _kb(via, buttons):
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
-POPULAR = ["EUR", "GBP", "JPY", "RUB", "CNY", "KRW", "INR", "BRL", "CHF", "CAD", "AUD", "TRY"]
+POPULAR = ["EUR", "GBP", "JPY", "RUB", "CNY",
+           "KRW", "INR", "BRL", "CHF", "CAD", "AUD", "TRY"]
 
 
 async def currency_cmd(self):

@@ -12,7 +12,8 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 import aiohttp
 import random
 
-SUBREDDITS = ["memes", "dankmemes", "wholesomememes", "me_irl", "ProgrammerHumor"]
+SUBREDDITS = ["memes", "dankmemes",
+              "wholesomememes", "me_irl", "ProgrammerHumor"]
 
 
 def _kb(via, buttons):

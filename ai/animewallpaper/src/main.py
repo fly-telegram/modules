@@ -12,7 +12,8 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 import aiohttp
 import random
 
-TAGS = ["waifu", "neko", "shinobu", "megumin", "bully", "cuddle", "kiss", "hug"]
+TAGS = ["waifu", "neko", "shinobu", "megumin",
+        "bully", "cuddle", "kiss", "hug"]
 
 
 def _kb(via, buttons):

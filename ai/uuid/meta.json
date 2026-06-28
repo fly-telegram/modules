@@ -1,0 +1,11 @@
+{
+  "name": "UUID",
+  "description": "Generate UUIDs v1, v4, v5, and v7",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": []
+}

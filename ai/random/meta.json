@@ -1,0 +1,11 @@
+{
+  "name": "Random",
+  "description": "Random picker, team splitter, decision maker, and weighted choices",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": []
+}

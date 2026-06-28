@@ -1,0 +1,11 @@
+{
+  "name": "Todo",
+  "description": "Manage in-memory todo lists with status tracking",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": []
+}

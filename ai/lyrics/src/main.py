@@ -62,7 +62,8 @@ async def lyrics_cmd(self):
 
     songs = data if isinstance(data, list) else data.get("data", [])
     if not songs:
-        artist, song = query.split(" - ", 1) if " - " in query else (None, query)
+        artist, song = query.split(
+            " - ", 1) if " - " in query else (None, query)
         return await _fetch_lyrics_direct(message, artist or "", song, self.client)
 
     via = self.client.inline.viamanager

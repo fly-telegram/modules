@@ -125,7 +125,8 @@ async def _show_movie_detail(call, imdb_id: str, chat_id: int):
     if len(plot) > 400:
         plot = plot[:397] + "..."
 
-    stars = "⭐" * max(1, round(float(imdb_rating) / 2)) if imdb_rating != "N/A" else ""
+    stars = "⭐" * max(1, round(float(imdb_rating) / 2)
+                      ) if imdb_rating != "N/A" else ""
 
     text = (
         f"🎬 <b>{title}</b> ({year})\n"

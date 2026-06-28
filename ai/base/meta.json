@@ -1,0 +1,11 @@
+{
+  "name": "Base",
+  "description": "Convert between number bases: binary, octal, decimal, hexadecimal",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": []
+}

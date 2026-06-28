@@ -1,0 +1,11 @@
+{
+  "name": "ColorGen",
+  "description": "Generate and preview random colors, RGB, HSL, hex conversions",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": []
+}

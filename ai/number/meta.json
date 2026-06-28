@@ -1,0 +1,11 @@
+{
+  "name": "Number",
+  "description": "Number theory utilities: prime check, factorial, fibonacci, GCD, LCM",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": []
+}

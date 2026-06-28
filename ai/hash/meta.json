@@ -1,0 +1,11 @@
+{
+  "name": "Hash",
+  "description": "Generate MD5, SHA1, SHA256, SHA512 hashes for text",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": []
+}

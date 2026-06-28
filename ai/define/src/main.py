@@ -90,7 +90,8 @@ async def define_cmd(self):
         for s in meaning.get("synonyms", [])[:3]:
             synonyms.add(s)
     if synonyms:
-        lines.append(f"🔗 <b>Synonyms:</b> <code>{', '.join(list(synonyms)[:5])}</code>")
+        lines.append(
+            f"🔗 <b>Synonyms:</b> <code>{', '.join(list(synonyms)[:5])}</code>")
 
     text = "\n".join(lines)
 

@@ -1,0 +1,11 @@
+{
+  "name": "Case",
+  "description": "Convert text case: camelCase, snake_case, kebab-case, PascalCase, and more",
+  "version": [1, 0, "beta"],
+  "author": {
+    "name": "HotDrify",
+    "link": "https://t.me/HotDrify"
+  },
+  "license": "GNU-APGL 3.0",
+  "deps": []
+}

@@ -77,7 +77,8 @@ async def yt_cmd(self):
                         return await message.edit("❌ Search failed")
                     html = await resp2.text()
                     import re
-                    ids = re.findall(r'href="/watch\?v=([a-zA-Z0-9_-]{11})"', html)
+                    ids = re.findall(
+                        r'href="/watch\?v=([a-zA-Z0-9_-]{11})"', html)
                     titles = re.findall(r'title="([^"]+)"', html)
                     results = []
                     for vid, title in zip(ids[:5], titles[:5]):
@@ -85,7 +86,8 @@ async def yt_cmd(self):
             else:
                 data = await resp.json()
                 results = [
-                    {"id": item["id"]["videoId"], "title": item["snippet"]["title"]}
+                    {"id": item["id"]["videoId"],
+                        "title": item["snippet"]["title"]}
                     for item in data.get("items", [])
                 ]
 
