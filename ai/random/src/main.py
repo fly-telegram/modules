@@ -114,8 +114,8 @@ async def team_cmd(self):
         result_lines.append(f"<b>Team {idx}</b> ({len(team)}):\n{members}")
 
     await message.edit(
-        f"👥 <b>Team Splitter</b>\n"
-        f"━━━━━━━━━━━━━━━\n\n"
+        "👥 <b>Team Splitter</b>\n"
+        "━━━━━━━━━━━━━━━\n\n"
         + "\n\n".join(result_lines)
     )
 

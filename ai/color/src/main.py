@@ -59,7 +59,7 @@ async def color_cmd(self):
     else:
         async with aiohttp.ClientSession() as session:
             async with session.get(
-                f"https://www.thecolorapi.com/id",
+                "https://www.thecolorapi.com/id",
                 params={"name": query, "format": "json"},
             ) as resp:
                 if resp.status == 200:

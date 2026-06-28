@@ -5,7 +5,6 @@
 #                              /___/
 #    Licensed under the GNU AGPLv3.
 
-import string
 
 
 ATBASH_MAP = str.maketrans(

@@ -10,7 +10,6 @@ from uuid import uuid4
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 import secrets
-import random
 
 DICE_FACES = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"]
 

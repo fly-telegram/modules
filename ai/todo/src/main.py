@@ -89,8 +89,8 @@ async def _list_todos(message, user_id):
     total = len(todos)
 
     await message.edit(
-        f"📋 <b>Todo List</b>\n"
-        f"━━━━━━━━━━━━━━━\n\n"
+        "📋 <b>Todo List</b>\n"
+        "━━━━━━━━━━━━━━━\n\n"
         + "\n".join(lines) +
         f"\n\n━━━━━━━━━━━━━━━\n"
         f"📊 <b>{done_count}/{total}</b> completed"

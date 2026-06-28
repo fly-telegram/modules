@@ -68,7 +68,7 @@ async def font_cmd(self):
 
 async def _show_fonts(message, text, client):
     via = client.inline.viamanager
-    lines = [f"🎨 <b>Font Generator</b>\n━━━━━━━━━━━━━━━\n\n"]
+    lines = ["🎨 <b>Font Generator</b>\n━━━━━━━━━━━━━━━\n\n"]
     lines.append(f"Original: <code>{text}</code>\n")
 
     buttons = []
