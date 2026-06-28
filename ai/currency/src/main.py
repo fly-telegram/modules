@@ -108,13 +108,13 @@ async def _convert(amount, from_cur, to_cur, call=None, message=None):
         if call:
             await call.answer(f"❌ Unknown currency: {from_cur}")
         elif message:
-            message.edit(f"❌ Unknown currency: <b>{from_cur}</b>")
+            await message.edit(f"❌ Unknown currency: <b>{from_cur}</b>")
         return None
     if to_cur not in rates:
         if call:
             await call.answer(f"❌ Unknown currency: {to_cur}")
         elif message:
-            message.edit(f"❌ Unknown currency: <b>{to_cur}</b>")
+            await message.edit(f"❌ Unknown currency: <b>{to_cur}</b>")
         return None
 
     usd_amount = amount / rates[from_cur]

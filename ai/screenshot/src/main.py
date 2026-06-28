@@ -7,9 +7,18 @@
 
 import io
 import urllib.parse
-from loader import Loader
+from loader import Loader, ConfigValue, ModuleConfig, validators
 
 loader = Loader()
+
+config = ModuleConfig(
+    ConfigValue(
+        "screenshotmachine_key",
+        "8a1ee2",
+        "ScreenshotMachine API key",
+        validators.String(),
+    )
+)
 
 
 @loader.alias('ss')
@@ -41,7 +50,7 @@ async def screenshot_cmd(self):
 
         # Using screenshot-api service (free, no key)
         encoded_url = urllib.parse.quote(url)
-        api_url = f"https://api.screenshotmachine.com/?key=8a1ee2&url={encoded_url}&dimension={width}x{height}&device=desktop&format=PNG&cacheLimit=0"
+        api_url = f"https://api.screenshotmachine.com/?key={config['screenshotmachine_key']}&url={encoded_url}&dimension={width}x{height}&device=desktop&format=PNG&cacheLimit=0"
 
         timeout = aiohttp.ClientTimeout(total=30)
         async with aiohttp.ClientSession(timeout=timeout) as session:

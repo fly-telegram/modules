@@ -8,11 +8,23 @@
 from uuid import uuid4
 
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from loader import Loader, ConfigValue, ModuleConfig, validators
 
 import aiohttp
 
+loader = Loader()
+
+config = ModuleConfig(
+    ConfigValue(
+        "omdb_api_key",
+        "5a9e0a1c",
+        "OMDB API key for movie/TV show search",
+        validators.String(),
+    )
+)
+
 API_BASE = "https://www.omdbapi.com"
-API_KEY = "5a9e0a1c"
+API_KEY = config["omdb_api_key"]
 
 
 def _kb(via, buttons):

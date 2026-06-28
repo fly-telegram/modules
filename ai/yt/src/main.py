@@ -8,8 +8,22 @@
 from uuid import uuid4
 
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from loader import Loader, ConfigValue, ModuleConfig, validators
 
 import aiohttp
+
+loader = Loader()
+
+config = ModuleConfig(
+    ConfigValue(
+        "youtube_api_key",
+        "AIzaSyCj0pDv7XEQlH6mDgZbGx7XkZ3n5vL8t9c",
+        "YouTube Data API v3 key",
+        validators.String(),
+    )
+)
+
+YT_API_KEY = config["youtube_api_key"]
 
 
 def _kb(via, buttons):
@@ -51,7 +65,7 @@ async def yt_cmd(self):
                 "q": query,
                 "maxResults": 5,
                 "type": "video",
-                "key": "AIzaSyCj0pDv7XEQlH6mDgZbGx7XkZ3n5vL8t9c",
+                "key": YT_API_KEY,
             },
         ) as resp:
             if resp.status != 200:

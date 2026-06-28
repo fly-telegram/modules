@@ -8,10 +8,22 @@
 from uuid import uuid4
 
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from loader import Loader, ConfigValue, ModuleConfig, validators
 
 import aiohttp
 
-API_KEY = "6e4c7c2e1bcf4f2da1d780d5282b741d"
+loader = Loader()
+
+config = ModuleConfig(
+    ConfigValue(
+        "newsapi_key",
+        "6e4c7c2e1bcf4f2da1d780d5282b741d",
+        "NewsAPI key for news headlines",
+        validators.String(),
+    )
+)
+
+API_KEY = config["newsapi_key"]
 CATEGORIES = [
     "business", "entertainment", "general", "health",
     "science", "sports", "technology",
