@@ -63,11 +63,11 @@ async def font_cmd(self):
         )
 
     text = args[1]
-    return await _show_fonts(message, text)
+    return await _show_fonts(message, text, self.client)
 
 
-async def _show_fonts(message, text):
-    via = message.client.inline.viamanager
+async def _show_fonts(message, text, client):
+    via = client.inline.viamanager
     lines = [f"🎨 <b>Font Generator</b>\n━━━━━━━━━━━━━━━\n\n"]
     lines.append(f"Original: <code>{text}</code>\n")
 
@@ -95,8 +95,8 @@ async def _show_fonts(message, text):
     buttons = [[{"text": "🗑 Close", "callback": _close}]]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, result_text,
+    await client.inline.say(
+        client, message, result_text,
         prefix="font_", buttons=buttons, chat_id=message.chat.id,
     )
 

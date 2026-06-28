@@ -42,10 +42,10 @@ async def password_cmd(self):
         except ValueError:
             pass
 
-    return await _generate_and_show(message, length)
+    return await _generate_and_show(message, length, self.client)
 
 
-async def _generate_and_show(message, length):
+async def _generate_and_show(message, length, client):
     chars = string.ascii_letters + string.digits + "!@#$%^&*()_+-=[]{}|;:,.<>?"
     password = "".join(secrets.choice(chars) for _ in range(length))
 
@@ -57,7 +57,7 @@ async def _generate_and_show(message, length):
         f"🔢 <b>Entropy:</b> ~{length * 6:.0f} bits"
     )
 
-    via = message.client.inline.viamanager
+    via = client.inline.viamanager
     buttons = [
         [{"text": "🔄 Regenerate", "callback": _regenerate,
           "params": {"length": length, "chat_id": message.chat.id}}],
@@ -67,8 +67,8 @@ async def _generate_and_show(message, length):
     ]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await client.inline.say(
+        client, message, text,
         prefix="pwd_", buttons=buttons, chat_id=message.chat.id,
     )
 

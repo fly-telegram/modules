@@ -63,9 +63,9 @@ async def lyrics_cmd(self):
     songs = data if isinstance(data, list) else data.get("data", [])
     if not songs:
         artist, song = query.split(" - ", 1) if " - " in query else (None, query)
-        return await _fetch_lyrics_direct(message, artist or "", song)
+        return await _fetch_lyrics_direct(message, artist or "", song, self.client)
 
-    via = message.client.inline.viamanager
+    via = self.client.inline.viamanager
     text = f"🎤 <b>Lyrics Search:</b> <code>{query}</code>\n━━━━━━━━━━━━━━━\n\nSelect a song:"
     buttons = []
     for i, song in enumerate(songs[:5], 1):
@@ -83,13 +83,13 @@ async def lyrics_cmd(self):
     buttons.append([{"text": "🗑 Close", "callback": _close}])
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await self.client.inline.say(
+        self.client, message, text,
         prefix="lyrics_", buttons=buttons, chat_id=message.chat.id,
     )
 
 
-async def _fetch_lyrics_direct(message, artist, song):
+async def _fetch_lyrics_direct(message, artist, song, client):
     async with aiohttp.ClientSession() as session:
         async with session.get(
             f"https://api.lyrics.ovh/v1/{artist}/{song}"
@@ -110,12 +110,12 @@ async def _fetch_lyrics_direct(message, artist, song):
         + f"━━━━━━━━━━━━━━━\n\n{lyrics}"
     )
 
-    via = message.client.inline.viamanager
+    via = client.inline.viamanager
     buttons = [[{"text": "🗑 Close", "callback": _close}]]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await client.inline.say(
+        client, message, text,
         prefix="lyrics_", buttons=buttons, chat_id=message.chat.id,
     )
 

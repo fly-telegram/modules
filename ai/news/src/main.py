@@ -42,11 +42,11 @@ def _kb(via, buttons):
 
 async def news_cmd(self):
     """Get latest news headlines — usage: .news [category]"""
-    return await _show_category_menu(self.message)
+    return await _show_category_menu(self.message, self.client)
 
 
-async def _show_category_menu(message):
-    via = message.client.inline.viamanager
+async def _show_category_menu(message, client):
+    via = client.inline.viamanager
     text = "📰 <b>News Categories</b>\n━━━━━━━━━━━━━━━\n\nSelect a category:"
     buttons = []
     for cat in CATEGORIES:
@@ -59,8 +59,8 @@ async def _show_category_menu(message):
     buttons.append([{"text": "🗑 Close", "callback": _close}])
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await client.inline.say(
+        client, message, text,
         prefix="news_", buttons=buttons, chat_id=message.chat.id,
     )
 

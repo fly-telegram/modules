@@ -43,12 +43,12 @@ async def crypto_cmd(self):
     message = self.message
     args = message.text.split(maxsplit=1)
     if len(args) < 2:
-        return await _show_menu(message)
+        return await _show_menu(message, self.client)
 
     query = args[1].strip().upper()
 
     if query == "ALL":
-        return await _show_menu(message)
+        return await _show_menu(message, self.client)
 
     coin_id = query.lower()
     async with aiohttp.ClientSession() as session:
@@ -80,7 +80,7 @@ async def crypto_cmd(self):
                         )
 
                     lines = ["🔍 <b>Did you mean?</b>\n"]
-                    via = message.client.inline.viamanager
+                    via = self.client.inline.viamanager
                     buttons = []
                     for c in matches:
                         name = c["name"]
@@ -93,8 +93,8 @@ async def crypto_cmd(self):
                     buttons.append([{"text": "🗑 Close", "callback": _close}])
 
                     await message.delete()
-                    await message.client.inline.say(
-                        message.client, message,
+                    await self.client.inline.say(
+                        self.client, message,
                         "\n".join(lines),
                         prefix="crypto_", buttons=buttons,
                         chat_id=message.chat.id,
@@ -122,7 +122,7 @@ async def crypto_cmd(self):
         f"🏦 <b>Market Cap:</b> <code>${market_cap:,.0f}</code>"
     )
 
-    via = message.client.inline.viamanager
+    via = self.client.inline.viamanager
     buttons = [
         [{"text": "📊 Top 10", "callback": _show_top10,
           "params": {"chat_id": message.chat.id}}],
@@ -130,21 +130,23 @@ async def crypto_cmd(self):
     ]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await self.client.inline.say(
+        self.client, message, text,
         prefix="crypto_", buttons=buttons, chat_id=message.chat.id,
     )
 
 
-async def _show_menu(message):
-    return await _show_top10(None, message.chat.id, message=message)
+async def _show_menu(message, client):
+    return await _show_top10_inner(None, message.chat.id, client, message=message)
 
 
-async def _show_top10(call, chat_id: int, message=None):
-    if call:
-        await call.answer("Loading top 10...")
+async def _show_top10(call, chat_id: int):
+    await call.answer("Loading top 10...")
+    await _show_top10_inner(call, chat_id, call.client)
+
+
+async def _show_top10_inner(call, chat_id: int, client, message=None):
     msg = call.message if call else message
-    client = call.client if call else message.client
 
     async with aiohttp.ClientSession() as session:
         async with session.get(

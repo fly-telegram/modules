@@ -84,7 +84,7 @@ async def github_cmd(self):
         f"🌐 <b>Blog:</b> <code>{blog}</code>"
     )
 
-    via = message.client.inline.viamanager
+    via = self.client.inline.viamanager
     buttons = [
         [{"text": "📦 Repositories", "callback": _user_repos,
           "params": {"login": login, "chat_id": message.chat.id}}],
@@ -93,8 +93,8 @@ async def github_cmd(self):
     ]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await self.client.inline.say(
+        self.client, message, text,
         prefix="gh_", buttons=buttons, chat_id=message.chat.id,
         file=avatar, file_type="photo" if avatar else None,
     )
@@ -201,15 +201,15 @@ async def _repo_info(self, message, owner, repo):
         f"📜 <b>License:</b> <code>{license_name}</code>"
     )
 
-    via = message.client.inline.viamanager
+    via = self.client.inline.viamanager
     buttons = [
         [{"text": "🌐 View on GitHub", "url": url}],
         [{"text": "🗑 Close", "callback": _close}],
     ]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await self.client.inline.say(
+        self.client, message, text,
         prefix="gh_", buttons=buttons, chat_id=message.chat.id,
     )
 

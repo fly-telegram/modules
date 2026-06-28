@@ -60,7 +60,7 @@ async def movie_cmd(self):
 
     results = data.get("Search", [])[:5]
 
-    via = message.client.inline.viamanager
+    via = self.client.inline.viamanager
     text = f"🎬 <b>Movies:</b> <code>{query}</code>\n━━━━━━━━━━━━━━━\n\nSelect a movie:"
     buttons = []
     for i, m in enumerate(results, 1):
@@ -75,8 +75,8 @@ async def movie_cmd(self):
     buttons.append([{"text": "🗑 Close", "callback": _close}])
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await self.client.inline.say(
+        self.client, message, text,
         prefix="movie_", buttons=buttons, chat_id=message.chat.id,
     )
 

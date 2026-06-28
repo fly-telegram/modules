@@ -41,7 +41,7 @@ async def dice_cmd(self):
     if len(args) > 1:
         arg = args[1].strip().lower()
         if arg == "coin":
-            return await _flip_coin(message)
+            return await _flip_coin(message, self.client)
         try:
             if "d" in arg:
                 parts = arg.split("d")
@@ -52,15 +52,15 @@ async def dice_cmd(self):
                 sides = int(arg)
             num = max(1, min(num, 10))
             sides = max(2, min(sides, 100))
-            return await _roll_dice(message, num, sides)
+            return await _roll_dice(message, num, sides, self.client)
         except ValueError:
             pass
 
-    return await _show_dice_menu(message)
+    return await _show_dice_menu(message, self.client)
 
 
-async def _show_dice_menu(message):
-    via = message.client.inline.viamanager
+async def _show_dice_menu(message, client):
+    via = client.inline.viamanager
     text = "🎲 <b>Dice & Games</b>\n━━━━━━━━━━━━━━━\n\nSelect an option:"
     buttons = [
         [{"text": "🎲 1d6 (Standard)", "callback": _roll_cb,
@@ -77,13 +77,13 @@ async def _show_dice_menu(message):
     ]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await client.inline.say(
+        client, message, text,
         prefix="dice_", buttons=buttons, chat_id=message.chat.id,
     )
 
 
-async def _roll_dice(message, num, sides):
+async def _roll_dice(message, num, sides, client):
     results = [secrets.randbelow(sides) + 1 for _ in range(num)]
     total = sum(results)
 
@@ -102,7 +102,7 @@ async def _roll_dice(message, num, sides):
         text += f"\n  📊 <b>Total:</b> <code>{total}</code>"
         text += f"\n  📈 <b>Average:</b> <code>{total / num:.1f}</code>"
 
-    via = message.client.inline.viamanager
+    via = client.inline.viamanager
     buttons = [
         [{"text": "🔄 Roll Again", "callback": _roll_cb,
           "params": {"num": num, "sides": sides, "chat_id": message.chat.id}}],
@@ -112,8 +112,8 @@ async def _roll_dice(message, num, sides):
     ]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await client.inline.say(
+        client, message, text,
         prefix="dice_", buttons=buttons, chat_id=message.chat.id,
     )
 
@@ -146,7 +146,7 @@ async def _roll_cb(call, num: int, sides: int, chat_id: int):
     await call.edit_message(text, reply_markup=_kb(via, buttons))
 
 
-async def _flip_coin(message):
+async def _flip_coin(message, client):
     result = secrets.choice(["Heads", "Tails"])
     emoji = "🪙"
 
@@ -156,7 +156,7 @@ async def _flip_coin(message):
         f"  🪄 <code>{result}</code>"
     )
 
-    via = message.client.inline.viamanager
+    via = client.inline.viamanager
     buttons = [
         [{"text": "🔄 Flip Again", "callback": _coin_cb,
           "params": {"chat_id": message.chat.id}}],
@@ -166,8 +166,8 @@ async def _flip_coin(message):
     ]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await client.inline.say(
+        client, message, text,
         prefix="dice_", buttons=buttons, chat_id=message.chat.id,
     )
 

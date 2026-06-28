@@ -60,7 +60,7 @@ async def wiki_cmd(self):
             f"❌ No Wikipedia articles found for <b>{query}</b>"
         )
 
-    via = message.client.inline.viamanager
+    via = self.client.inline.viamanager
     text = f"📚 <b>Wikipedia:</b> <code>{query}</code>\n━━━━━━━━━━━━━━━\n\nSelect an article:"
     buttons = []
     for i, page in enumerate(pages[:5], 1):
@@ -76,8 +76,8 @@ async def wiki_cmd(self):
     buttons.append([{"text": "🗑 Close", "callback": _close}])
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await self.client.inline.say(
+        self.client, message, text,
         prefix="wiki_", buttons=buttons, chat_id=message.chat.id,
     )
 

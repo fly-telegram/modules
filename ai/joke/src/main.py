@@ -40,18 +40,18 @@ async def joke_cmd(self):
     category = args[1].strip().lower() if len(args) > 1 else None
 
     if category and category in TYPES:
-        return await _fetch_joke(message, category)
+        return await _fetch_joke(message, category, self.client)
     elif category:
         return await message.edit(
             f"❌ Unknown category: <b>{category}</b>\n"
             f"Available: {', '.join(TYPES)}"
         )
 
-    return await _show_category_menu(message)
+    return await _show_category_menu(message, self.client)
 
 
-async def _show_category_menu(message):
-    via = message.client.inline.viamanager
+async def _show_category_menu(message, client):
+    via = client.inline.viamanager
     text = "😂 <b>Joke Categories</b>\n━━━━━━━━━━━━━━━\n\nSelect a category:"
     buttons = []
     for cat in TYPES:
@@ -65,20 +65,20 @@ async def _show_category_menu(message):
     buttons.append([{"text": "🗑 Close", "callback": _close}])
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await client.inline.say(
+        client, message, text,
         prefix="joke_", buttons=buttons, chat_id=message.chat.id,
     )
 
 
-async def _fetch_joke(message, category):
+async def _fetch_joke(message, category, client):
     await message.edit(f"😂 Fetching a <b>{category}</b> joke...")
     joke = await _get_joke(category)
     if not joke:
         return await message.edit("❌ Failed to fetch joke")
 
     text = _format_joke(joke, category)
-    via = message.client.inline.viamanager
+    via = client.inline.viamanager
     buttons = [
         [{"text": "🔄 Another", "callback": _fetch_joke_cb,
           "params": {"category": category, "chat_id": message.chat.id}}],
@@ -88,8 +88,8 @@ async def _fetch_joke(message, category):
     ]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await client.inline.say(
+        client, message, text,
         prefix="joke_", buttons=buttons, chat_id=message.chat.id,
     )
 

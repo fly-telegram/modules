@@ -47,16 +47,16 @@ async def trivia_cmd(self):
     if len(args) > 1:
         cat = args[1].strip().lower()
         if cat in CATEGORIES:
-            return await _fetch_trivia(message, cat)
+            return await _fetch_trivia(message, cat, self.client)
         return await message.edit(
             f"❌ Unknown category: <b>{cat}</b>"
         )
 
-    return await _show_categories(message)
+    return await _show_categories(message, self.client)
 
 
-async def _show_categories(message):
-    via = message.client.inline.viamanager
+async def _show_categories(message, client):
+    via = client.inline.viamanager
     text = "❓ <b>Trivia Categories</b>\n━━━━━━━━━━━━━━━\n\nSelect a category:"
     buttons = []
     for name in CATEGORIES:
@@ -70,19 +70,19 @@ async def _show_categories(message):
     buttons.append([{"text": "🗑 Close", "callback": _close}])
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await client.inline.say(
+        client, message, text,
         prefix="trivia_", buttons=buttons, chat_id=message.chat.id,
     )
 
 
-async def _fetch_trivia(message, category):
+async def _fetch_trivia(message, category, client):
     await message.edit(f"❓ Fetching a <b>{category}</b> question...")
     cat_id = CATEGORIES[category]
     question_data = await _get_question(cat_id)
     if not question_data:
         return await message.edit("❌ Failed to fetch question")
-    await _show_question(message, question_data, category)
+    await _show_question(message, question_data, category, client)
 
 
 async def _fetch_trivia_cb(call, category: str, chat_id: int):
@@ -141,7 +141,7 @@ async def _get_question(category_id):
     }
 
 
-async def _show_question(message, q_data, category):
+async def _show_question(message, q_data, category, client):
     question = q_data["question"]
     correct = q_data["correct"]
     incorrect = q_data["incorrect"]
@@ -162,7 +162,7 @@ async def _show_question(message, q_data, category):
         f"Select an answer:"
     )
 
-    via = message.client.inline.viamanager
+    via = client.inline.viamanager
     buttons = []
     for i, ans in enumerate(answers):
         buttons.append([{
@@ -176,8 +176,8 @@ async def _show_question(message, q_data, category):
     buttons.append([{"text": "🗑 Close", "callback": _close}])
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await client.inline.say(
+        client, message, text,
         prefix="trivia_", buttons=buttons, chat_id=message.chat.id,
     )
 

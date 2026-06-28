@@ -40,12 +40,12 @@ async def wallpaper_cmd(self):
     tag = args[1].strip() if len(args) > 1 else None
 
     if tag:
-        return await _fetch_wallpaper(message, tag)
-    return await _show_tag_menu(message)
+        return await _fetch_wallpaper(message, tag, self.client)
+    return await _show_tag_menu(message, self.client)
 
 
-async def _show_tag_menu(message):
-    via = message.client.inline.viamanager
+async def _show_tag_menu(message, client):
+    via = client.inline.viamanager
     text = "🖼️ <b>Anime Wallpapers</b>\n━━━━━━━━━━━━━━━\n\nSelect a tag:"
     buttons = []
     for tag in TAGS:
@@ -59,8 +59,8 @@ async def _show_tag_menu(message):
     buttons.append([{"text": "🗑 Close", "callback": _close}])
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await client.inline.say(
+        client, message, text,
         prefix="wall_", buttons=buttons, chat_id=message.chat.id,
     )
 
@@ -116,7 +116,7 @@ async def _random_wallpaper(call, chat_id: int):
                             file=url, file_type="photo")
 
 
-async def _fetch_wallpaper(message, tag):
+async def _fetch_wallpaper(message, tag, client):
     await message.edit(f"🖼️ Fetching <b>{tag}</b> wallpaper...")
     url = await _get_wallpaper_url(tag)
     if not url:
@@ -128,7 +128,7 @@ async def _fetch_wallpaper(message, tag):
         f"🏷️ <b>Tag:</b> <code>{tag}</code>"
     )
 
-    via = message.client.inline.viamanager
+    via = client.inline.viamanager
     buttons = [
         [{"text": "🔄 Next", "callback": _fetch_wallpaper_tag,
           "params": {"tag": tag, "chat_id": message.chat.id}}],
@@ -138,8 +138,8 @@ async def _fetch_wallpaper(message, tag):
     ]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await client.inline.say(
+        client, message, text,
         prefix="wall_", buttons=buttons, chat_id=message.chat.id,
         file=url, file_type="photo",
     )
@@ -174,7 +174,7 @@ async def waifu_cmd(self):
     if not url:
         return await message.edit("❌ No waifu found")
 
-    via = message.client.inline.viamanager
+    via = self.client.inline.viamanager
     text = "🖼️ <b>Random Waifu</b>\n━━━━━━━━━━━━━━━"
     buttons = [
         [{"text": "🔄 Another", "callback": _random_wallpaper,
@@ -185,8 +185,8 @@ async def waifu_cmd(self):
     ]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await self.client.inline.say(
+        self.client, message, text,
         prefix="wall_", buttons=buttons, chat_id=message.chat.id,
         file=url, file_type="photo",
     )

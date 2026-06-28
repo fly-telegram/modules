@@ -40,12 +40,12 @@ async def meme_cmd(self):
     subreddit = args[1].strip() if len(args) > 1 else None
 
     if subreddit:
-        return await _fetch_meme(message, subreddit)
-    return await _show_sub_menu(message)
+        return await _fetch_meme(message, subreddit, self.client)
+    return await _show_sub_menu(message, self.client)
 
 
-async def _show_sub_menu(message):
-    via = message.client.inline.viamanager
+async def _show_sub_menu(message, client):
+    via = client.inline.viamanager
     text = "😂 <b>Meme Subreddits</b>\n━━━━━━━━━━━━━━━\n\nSelect a subreddit:"
     buttons = []
     for sub in SUBREDDITS:
@@ -59,8 +59,8 @@ async def _show_sub_menu(message):
     buttons.append([{"text": "🗑 Close", "callback": _close}])
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await client.inline.say(
+        client, message, text,
         prefix="meme_", buttons=buttons, chat_id=message.chat.id,
     )
 
@@ -76,7 +76,7 @@ async def _random_meme(call, chat_id: int):
     await _fetch_and_show(call, subreddit, chat_id)
 
 
-async def _fetch_meme(message, subreddit):
+async def _fetch_meme(message, subreddit, client):
     await message.edit(f"😂 Fetching meme from <b>r/{subreddit}</b>...")
     async with aiohttp.ClientSession() as session:
         async with session.get(
@@ -98,7 +98,7 @@ async def _fetch_meme(message, subreddit):
         )
 
     post = random.choice(image_posts)
-    await _send_meme(message, post, subreddit)
+    await _send_meme(message, post, subreddit, client)
 
 
 async def _fetch_and_show(call, subreddit, chat_id):
@@ -137,7 +137,7 @@ def _get_image_posts(posts):
     ]
 
 
-async def _send_meme(message, post, subreddit):
+async def _send_meme(message, post, subreddit, client):
     title = post.get("title", "No title")
     url = post.get("url", "")
     permalink = post.get("permalink", "")
@@ -152,7 +152,7 @@ async def _send_meme(message, post, subreddit):
         f"subreddit: r/{subreddit}"
     )
 
-    via = message.client.inline.viamanager
+    via = client.inline.viamanager
     buttons = [
         [{"text": "🔗 View on Reddit", "url": reddit_url}],
         [{"text": "🔄 Next", "callback": _fetch_meme_sub,
@@ -161,8 +161,8 @@ async def _send_meme(message, post, subreddit):
     ]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await client.inline.say(
+        client, message, text,
         prefix="meme_", buttons=buttons, chat_id=message.chat.id,
         file=url, file_type="photo",
     )

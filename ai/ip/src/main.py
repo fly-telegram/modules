@@ -77,7 +77,7 @@ async def ip_cmd(self):
         f"\n📍 <b>Coordinates:</b> {lat}, {lon}"
     )
 
-    via = message.client.inline.viamanager
+    via = self.client.inline.viamanager
     buttons = [
         [{"text": "🔄 My IP", "callback": _my_ip,
           "params": {"chat_id": message.chat.id}}],
@@ -85,8 +85,8 @@ async def ip_cmd(self):
     ]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await self.client.inline.say(
+        self.client, message, text,
         prefix="ip_", buttons=buttons, chat_id=message.chat.id,
     )
 

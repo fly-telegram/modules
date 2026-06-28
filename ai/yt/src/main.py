@@ -78,7 +78,7 @@ async def yt_cmd(self):
     if not results:
         return await message.edit(f"❌ No results for <b>{query}</b>")
 
-    via = message.client.inline.viamanager
+    via = self.client.inline.viamanager
     text = f"▶️ <b>YouTube Search:</b> <code>{query}</code>\n━━━━━━━━━━━━━━━\n\nSelect a video:"
     buttons = []
     for i, video in enumerate(results[:5], 1):
@@ -92,8 +92,8 @@ async def yt_cmd(self):
     buttons.append([{"text": "🗑 Close", "callback": _close}])
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await self.client.inline.say(
+        self.client, message, text,
         prefix="yt_", buttons=buttons, chat_id=message.chat.id,
     )
 

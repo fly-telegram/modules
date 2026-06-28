@@ -38,10 +38,10 @@ async def currency_cmd(self):
     message = self.message
     args = message.text.split()
     if len(args) < 2:
-        return await _show_currency_menu(message)
+        return await _show_currency_menu(message, self.client)
 
     if args[1].upper() == "RATES":
-        return await _show_rates(message)
+        return await _show_rates(message, self.client)
 
     if len(args) < 4:
         return await message.edit(
@@ -63,7 +63,7 @@ async def currency_cmd(self):
     if result is None:
         return
 
-    via = message.client.inline.viamanager
+    via = self.client.inline.viamanager
     text = (
         f"💱 <b>Currency Conversion</b>\n"
         f"━━━━━━━━━━━━━━━\n\n"
@@ -84,8 +84,8 @@ async def currency_cmd(self):
     ]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await self.client.inline.say(
+        self.client, message, text,
         prefix="cur_", buttons=buttons, chat_id=message.chat.id,
     )
 
@@ -150,8 +150,8 @@ async def _swap_convert(call, amount: float, from_cur: str, to_cur: str, chat_id
     await call.edit_message(text, reply_markup=_kb(via, buttons))
 
 
-async def _show_currency_menu(message):
-    via = message.client.inline.viamanager
+async def _show_currency_menu(message, client):
+    via = client.inline.viamanager
     text = "💱 <b>Currency Converter</b>\n━━━━━━━━━━━━━━━\n\n"
     text += "Use <code>.currency 100 USD EUR</code>\nor select a popular pair:"
 
@@ -169,8 +169,8 @@ async def _show_currency_menu(message):
     buttons.append([{"text": "🗑 Close", "callback": _close}])
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await client.inline.say(
+        client, message, text,
         prefix="cur_", buttons=buttons, chat_id=message.chat.id,
     )
 
@@ -199,7 +199,7 @@ async def _show_pair_rate(call, from_cur: str, to_cur: str, chat_id: int):
     await call.edit_message(text, reply_markup=_kb(via, buttons))
 
 
-async def _show_rates(message):
+async def _show_rates(message, client):
     async with aiohttp.ClientSession() as session:
         async with session.get(
             "https://api.exchangerate-api.com/v4/latest/USD"
@@ -214,7 +214,7 @@ async def _show_rates(message):
         if cur in rates:
             lines.append(f"  • <code>{cur}</code>: {rates[cur]:,.4f}")
 
-    via = message.client.inline.viamanager
+    via = client.inline.viamanager
     buttons = [
         [{"text": "💱 Convert", "callback": _back_currency_menu,
           "params": {"chat_id": message.chat.id}}],
@@ -222,8 +222,8 @@ async def _show_rates(message):
     ]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, "\n".join(lines),
+    await client.inline.say(
+        client, message, "\n".join(lines),
         prefix="cur_", buttons=buttons, chat_id=message.chat.id,
     )
 

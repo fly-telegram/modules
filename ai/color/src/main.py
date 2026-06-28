@@ -102,15 +102,15 @@ async def color_cmd(self):
         f"💡 <b>Luminance:</b> <code>{luminance:.2%}</code>"
     )
 
-    via = message.client.inline.viamanager
+    via = self.client.inline.viamanager
     buttons = [
         [{"text": "🖼️ View color", "url": image_url}],
         [{"text": "🗑 Close", "callback": _close}],
     ]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await self.client.inline.say(
+        self.client, message, text,
         prefix="color_", buttons=buttons, chat_id=message.chat.id,
     )
 

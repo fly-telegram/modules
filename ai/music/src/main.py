@@ -56,7 +56,7 @@ async def music_cmd(self):
     if not tracks:
         return await message.edit(f"❌ No results for <b>{query}</b>")
 
-    via = message.client.inline.viamanager
+    via = self.client.inline.viamanager
     text = f"🎵 <b>Music Search:</b> <code>{query}</code>\n━━━━━━━━━━━━━━━\n\nSelect a track:"
     buttons = []
     for i, track in enumerate(tracks[:5], 1):
@@ -73,8 +73,8 @@ async def music_cmd(self):
     buttons.append([{"text": "🗑 Close", "callback": _close}])
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await self.client.inline.say(
+        self.client, message, text,
         prefix="music_", buttons=buttons, chat_id=message.chat.id,
     )
 

@@ -94,15 +94,15 @@ async def define_cmd(self):
 
     text = "\n".join(lines)
 
-    via = message.client.inline.viamanager
+    via = self.client.inline.viamanager
     buttons = []
     if audio_url:
         buttons.append([{"text": "🔊 Play pronunciation", "url": audio_url}])
     buttons.append([{"text": "🗑 Close", "callback": _close}])
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await self.client.inline.say(
+        self.client, message, text,
         prefix="def_", buttons=buttons, chat_id=message.chat.id,
     )
 

@@ -67,7 +67,7 @@ async def paste_cmd(self):
     url = f"https://batbin.me/{key}"
     raw_url = f"https://batbin.me/raw/{key}"
 
-    via = message.client.inline.viamanager
+    via = self.client.inline.viamanager
     text = (
         f"✅ <b>Paste uploaded!</b>\n\n"
         f"📄 <b>Content:</b> {len(content)} chars"
@@ -79,8 +79,8 @@ async def paste_cmd(self):
     ]
 
     await message.delete()
-    await message.client.inline.say(
-        message.client, message, text,
+    await self.client.inline.say(
+        self.client, message, text,
         prefix="paste_", buttons=buttons, chat_id=message.chat.id,
     )
 
